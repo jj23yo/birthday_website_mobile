@@ -102,7 +102,7 @@ function Cake() {
               </defs>
               <text fontSize="40" fill="white" textAnchor="middle">
                 <textPath href="#curve" startOffset="50%">
-                  Feliz cumpleaños! your last free ticket 'Me' means that I have a lot of breaks in May and I am willing to fly to the US to see you! (New York preferably), so tell me when you can <3 (If you wish to of course)
+                  Feliz cumpleaños! your last free ticket 'Me' means that I have a lot of breaks in May and I am willing to fly to the US to see you! (New York preferably), so tell me when you can (If you wish to of course)
                 </textPath>
               </text>
             </svg>
