@@ -1,4 +1,4 @@
-import bg from './bg.jpg'
+import bg from './Bg.png'
 
 import picture from './ducky.png'
 
