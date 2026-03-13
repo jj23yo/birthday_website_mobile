@@ -41,11 +41,12 @@ function Card() {
             <p>
               You have been through a lot, and still you did not let that stop you.
             </p>
-            <p> I admire you so much, and I am very proud of you.
+            <p> I admire you so much, and I am very proud of you. You really inspire me to do better, to never let go. 
+              Your discipline is crazy, it may come from the Marines but the motivation comes within you.
             </p>
             <p>
               I am very lucky and grateful to have met you. You are brilliant, kind, hard working, funny and just so damn amazing. 
-              I have never once regretted loving you, and please, keep being yourself.
+              I have never once regretted loving you, so please, keep being yourself, and be proud of you.
             </p>
             <p> I love you a lot dear. Happy 20th birthday love
             </p>
