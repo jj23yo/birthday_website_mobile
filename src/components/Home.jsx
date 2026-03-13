@@ -29,7 +29,7 @@ function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2 }}
-            className="text-4xl font-bold text-customBlue drop-shadow-lg"
+            className="text-4xl font-bold text-[#FDF0D5] drop-shadow-lg"
           >
             {sentence}
           </motion.p>
