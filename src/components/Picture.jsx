@@ -7,8 +7,6 @@ import SectionWrapper from './SectionWrapper';
 const images = [
  picture,
  picture,
- picture,
- picture,
 
 ];
 function Picture() {
