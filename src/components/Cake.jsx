@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../assets/css/cake.css";
 import { CakeSVG, confetti } from "../assets";
 import { motion } from "framer-motion";
@@ -9,12 +9,13 @@ function Cake() {
   const [micPermissionGranted, setMicPermissionGranted] = useState(false);
   const [listening, setListening] = useState(false);
 
-  // Function to request mic permission and start blow detection
+  // Request mic permission and start blow detection
   async function startBlowDetection() {
     if (listening || candlesBlownOut) return; // prevent multiple streams
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      setMicPermissionGranted(true);
+      setMicPermissionGranted(true); // permission granted
       setListening(true);
 
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -25,8 +26,8 @@ function Cake() {
       source.connect(analyser);
 
       let blowStartTime = null;
-      const blowThreshold = 100;
-      const requiredDuration = 1500;
+      const blowThreshold = 100; // sensitivity
+      const requiredDuration = 1500; // blow duration in ms
 
       function detectBlow() {
         analyser.getByteFrequencyData(dataArray);
@@ -100,18 +101,18 @@ function Cake() {
             {!candlesBlownOut && (
               <div>
                 {/* Floating "blow" texts above flames */}
-                <div className="absolute -top-[200px] text-gray-200 text-3xl">
+                <div className="absolute -top-[200px] w-full text-center text-gray-200 text-xl">
                   <motion.div
                     animate={{ opacity: [0, 0.25, 0] }}
                     transition={{ duration: 2, repeat: Infinity, delay: 0 }}
-                    className="block -translate-x-[60px] translate-y-[105px] -rotate-[30deg] text-gray-200 text-xl"
+                    className="inline-block -translate-x-[60px] translate-y-[105px] -rotate-[30deg]"
                   >
                     blow
                   </motion.div>
                   <motion.div
                     animate={{ opacity: [0, 0.25, 0] }}
                     transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                    className="block translate-x-10 translate-y-[80px] rotate-[30deg] text-gray-200 text-xl"
+                    className="inline-block translate-x-10 translate-y-[80px] rotate-[30deg]"
                   >
                     blow
                   </motion.div>
@@ -136,9 +137,10 @@ function Cake() {
         {/* Instruction text if mic not yet granted */}
         {!micPermissionGranted && !candlesBlownOut && (
           <motion.div
-            className="absolute bottom-20 w-full text-center text-[#FFFDD0] text-lg"
+            className="absolute bottom-16 w-full text-center text-[#FFFDD0] text-lg z-50 pointer-events-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ opacity: { duration: 1 } }}
           >
             Tap the cake and blow into your phone!
           </motion.div>
