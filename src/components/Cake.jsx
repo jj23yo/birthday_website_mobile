@@ -6,16 +6,14 @@ import { Link } from "react-router-dom";
 
 function Cake() {
   const [candlesBlownOut, setCandlesBlownOut] = useState(false);
-  const [micPermissionGranted, setMicPermissionGranted] = useState(false);
   const [listening, setListening] = useState(false);
 
-  // Request mic permission and start blow detection
-  async function startBlowDetection() {
-    if (listening || candlesBlownOut) return; // prevent multiple streams
+  // Tap the cake → request mic and start blow detection
+  async function handleCakeTap() {
+    if (listening || candlesBlownOut) return;
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      setMicPermissionGranted(true); // permission granted
       setListening(true);
 
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -26,8 +24,8 @@ function Cake() {
       source.connect(analyser);
 
       let blowStartTime = null;
-      const blowThreshold = 100; // sensitivity
-      const requiredDuration = 1500; // blow duration in ms
+      const blowThreshold = 100;
+      const requiredDuration = 1500;
 
       function detectBlow() {
         analyser.getByteFrequencyData(dataArray);
@@ -55,7 +53,7 @@ function Cake() {
   }
 
   return (
-    <div className="bg-black/80 h-screen w-screen flex items-center justify-center overflow-hidden relative">
+    <div className="bg-black/80 h-screen w-screen flex flex-col items-center justify-center overflow-hidden relative">
       {/* Confetti overlay */}
       {candlesBlownOut && (
         <div
@@ -64,7 +62,7 @@ function Cake() {
         />
       )}
 
-      {/* Celebration text and link */}
+      {/* Celebration text */}
       {candlesBlownOut && (
         <motion.div
           className="absolute top-20 text-white text-3xl font-bold z-50"
@@ -90,11 +88,8 @@ function Cake() {
         </motion.div>
       )}
 
-      {/* Cake area */}
-      <div
-        className="relative z-10 cursor-pointer"
-        onClick={startBlowDetection} // Tap to start mic
-      >
+      {/* Cake container */}
+      <div className="relative z-10 flex flex-col items-center">
         {/* Candles */}
         <div className="absolute -top-48 left-1/2 transform -translate-x-1/2">
           <div className="candle">
@@ -132,17 +127,19 @@ function Cake() {
         </div>
 
         {/* Cake SVG */}
-        <CakeSVG />
+        <div onClick={handleCakeTap} className="cursor-pointer z-20">
+          <CakeSVG />
+        </div>
 
-        {/* Instruction text if mic not yet granted */}
-        {!micPermissionGranted && !candlesBlownOut && (
+        {/* Instruction text under cake */}
+        {!candlesBlownOut && (
           <motion.div
-            className="absolute bottom-16 w-full text-center text-[#FFFDD0] text-lg z-50 pointer-events-none"
+            className="text-[#FFFDD0] mt-6 text-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ opacity: { duration: 1 } }}
+            transition={{ duration: 1 }}
           >
-            Tap the cake and blow into your phone!
+            Tap me!
           </motion.div>
         )}
       </div>
