@@ -154,6 +154,22 @@ function Cake() {
             </div>
           </div>
           <CakeSVG />
+          
+          <button
+  onClick={() => setCandlesBlownOut(true)}
+  style={{
+    position: "absolute",
+    bottom: "20px",
+    left: "20px",
+    zIndex: 200,
+    padding: "10px",
+    background: "white",
+    color: "black",
+    borderRadius: "6px"
+  }}
+>
+  DEBUG BLOW
+</button>
         </div>
       </div>
     </>
