@@ -4,8 +4,19 @@
 
 
 #card-front {
-    color: #FFC200;
-  }
+    background: linear-gradient(
+        135deg,
+        #7A5A00 0%,
+        #C9A227 20%,
+        #F5E27A 40%,
+        #C9A227 60%,
+        #8C6A00 80%,
+        #5A4200 100%
+    );
+    transform-origin: left;
+    transition: transform 1s linear;
+    position: relative;
+}
   
   #card, #card-front, #card-inside {
     height: 560px;
@@ -133,10 +144,17 @@
       background-color: rgba(0, 0, 0, .5);
   }
   
-  #card.open-fully #card-front,
-  #card.close-half #card-front {
-    background: #FFC200;
-  }
+ #card.open-fully #card-front,
+#card.close-half #card-front {
+  background: linear-gradient(
+        135deg,
+        #7A5A00,
+        #C9A227,
+        #F5E27A,
+        #C9A227,
+        #8C6A00
+  );
+}
   
   #card.open-fully #card-front {
       transform: rotateY(-180deg);
