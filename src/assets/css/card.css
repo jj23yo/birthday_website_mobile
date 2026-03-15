@@ -114,14 +114,6 @@
       font-size: 1.5em;
   }
   
-  #card-front {
-      background-color: #FFC200;
-      background-image: linear-gradient(to bottom, #FFC200 0%, #FFD84D 100%);
-      transform-origin: left;
-      transition:  transform 1s linear;
-      position: relative;
-  }
-  
   #card-front .wrap {
     transition: background 1s linear;
   }
