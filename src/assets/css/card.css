@@ -6,11 +6,11 @@
 #card-front {
     background: linear-gradient(
         135deg,
-        #2c2100 0%,
-        #6b4f00 25%,
-        #b8962e 45%,
-        #6b4f00 70%,
-        #1a1400 100%
+        #8a6a1f 0%,
+        #c9a43a 30%,
+        #f1d97a 50%,
+        #c9a43a 70%,
+        #8a6a1f 100%
     );
     transform-origin: left;
     transition: transform 1s linear;
