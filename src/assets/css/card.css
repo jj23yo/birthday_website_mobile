@@ -80,7 +80,7 @@ Order matters a
   
   #card-front {
       background-color: #FFC200;
-      background-image: linear-gradient(to bottom, #FF5555 0%, #FF7777 100%);
+      background-image: linear-gradient(to bottom, #FFC200 0%, #FFD84D 100%);
       transform-origin: left;
       transition:  transform 1s linear;
       position: relative;
