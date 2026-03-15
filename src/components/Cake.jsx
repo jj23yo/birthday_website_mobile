@@ -25,8 +25,8 @@ function Cake() {
       source.connect(analyser);
 
       let blowStartTime = null;
-      const blowThreshold = 100; // adjust sensitivity if needed
-      const requiredDuration = 1500; // blow duration in ms
+      const blowThreshold = 100;
+      const requiredDuration = 1500;
 
       function detectBlow() {
         analyser.getByteFrequencyData(dataArray);
@@ -37,7 +37,7 @@ function Cake() {
           if (!blowStartTime) blowStartTime = performance.now();
           else if (performance.now() - blowStartTime > requiredDuration) {
             setCandlesBlownOut(true);
-            audioContext.close(); // stop listening
+            audioContext.close();
             return;
           }
         } else {
@@ -99,6 +99,25 @@ function Cake() {
           <div className="candle">
             {!candlesBlownOut && (
               <div>
+                {/* Floating "blow" texts above flames */}
+                <div className="absolute -top-[200px] text-gray-200 text-3xl">
+                  <motion.div
+                    animate={{ opacity: [0, 0.25, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0 }}
+                    className="block -translate-x-[60px] translate-y-[105px] -rotate-[30deg] text-gray-200 text-xl"
+                  >
+                    blow
+                  </motion.div>
+                  <motion.div
+                    animate={{ opacity: [0, 0.25, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                    className="block translate-x-10 translate-y-[80px] rotate-[30deg] text-gray-200 text-xl"
+                  >
+                    blow
+                  </motion.div>
+                </div>
+
+                {/* Flames */}
                 <div>
                   <div className="flame"></div>
                   <div className="flame"></div>
@@ -114,10 +133,10 @@ function Cake() {
         {/* Cake SVG */}
         <CakeSVG />
 
-        {/* Optional: show message if mic not yet granted */}
+        {/* Instruction text if mic not yet granted */}
         {!micPermissionGranted && !candlesBlownOut && (
           <motion.div
-            className="absolute bottom-20 w-full text-center text-white text-lg"
+            className="absolute bottom-20 w-full text-center text-[#FFFDD0] text-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
