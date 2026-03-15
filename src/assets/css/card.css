@@ -31,7 +31,7 @@ Order matters a
   }
   
   #card-inside .wrap {
-      background: #FFEFEF;
+      background: #FFFDD0 ;
       -webkit-box-shadow: inset 2px 0 1px rgba(0, 0, 0, .05);
       -moz-box-shadow: inset 2px 0 1px rgba(0, 0, 0, .05);
       box-shadow: inset 2px 0 1px rgba(0, 0, 0, .05);
@@ -79,7 +79,7 @@ Order matters a
   }
   
   #card-front {
-      background-color: #FF5555;
+      background-color: #FFC200;
       background-image: linear-gradient(to bottom, #FF5555 0%, #FF7777 100%);
       transform-origin: left;
       transition:  transform 1s linear;
@@ -136,7 +136,7 @@ Order matters a
   
   #card.open-fully #card-front,
   #card.close-half #card-front {
-    background: #FFEFEF;
+    background: #FFC200;
   }
   
   #card.open-fully #card-front {
