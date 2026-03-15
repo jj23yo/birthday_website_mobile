@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../assets/css/cake.css";
 import { CakeSVG, confetti } from "../assets";
 import { motion } from "framer-motion";
@@ -6,51 +6,62 @@ import { Link } from "react-router-dom";
 
 function Cake() {
   const [candlesBlownOut, setCandlesBlownOut] = useState(false);
-  const [listening, setListening] = useState(false);
 
-  // Tap the cake → request mic and start blow detection
-  async function handleCakeTap() {
-    if (listening || candlesBlownOut) return;
+  useEffect(() => {
+    let audioContext;
+    let analyser;
+    let dataArray;
+    let blowStartTime = null;
 
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      setListening(true);
+    async function initBlowDetection() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        const source = audioContext.createMediaStreamSource(stream);
+        analyser.fftSize = 512;
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
+        source.connect(analyser);
 
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const analyser = audioContext.createAnalyser();
-      const source = audioContext.createMediaStreamSource(stream);
-      analyser.fftSize = 512;
-      const dataArray = new Uint8Array(analyser.frequencyBinCount);
-      source.connect(analyser);
+        detectBlow();
+      } catch (error) {
+        console.error("Microphone access denied:", error);
+      }
+    }
 
-      let blowStartTime = null;
+    function detectBlow() {
+      if (!analyser || !dataArray) return;
+      analyser.getByteFrequencyData(dataArray);
+      const lowFreq = dataArray.slice(0, 15);
+      const avg = lowFreq.reduce((a, b) => a + b, 0) / lowFreq.length;
+
       const blowThreshold = 100;
       const requiredDuration = 1500;
 
-      function detectBlow() {
-        analyser.getByteFrequencyData(dataArray);
-        const lowFreq = dataArray.slice(0, 15);
-        const avg = lowFreq.reduce((a, b) => a + b, 0) / lowFreq.length;
-
-        if (avg > blowThreshold) {
-          if (!blowStartTime) blowStartTime = performance.now();
-          else if (performance.now() - blowStartTime > requiredDuration) {
-            setCandlesBlownOut(true);
-            audioContext.close();
-            return;
-          }
-        } else {
-          blowStartTime = null;
+      if (avg > blowThreshold) {
+        if (!blowStartTime) blowStartTime = performance.now();
+        else if (performance.now() - blowStartTime > requiredDuration) {
+          setCandlesBlownOut(true);
+          audioContext.close();
+          return;
         }
-
-        if (!candlesBlownOut) requestAnimationFrame(detectBlow);
+      } else {
+        blowStartTime = null;
       }
 
-      detectBlow();
-    } catch (err) {
-      console.error("Microphone access denied", err);
+      if (!candlesBlownOut) requestAnimationFrame(detectBlow);
     }
-  }
+
+    // Automatically request mic after 1 second
+    const timeout = setTimeout(() => {
+      initBlowDetection();
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+      if (audioContext) audioContext.close();
+    };
+  }, [candlesBlownOut]);
 
   return (
     <div className="bg-black/80 h-screen w-screen flex flex-col items-center justify-center overflow-hidden relative">
@@ -88,14 +99,13 @@ function Cake() {
         </motion.div>
       )}
 
-      {/* Cake container */}
+      {/* Cake and flames */}
       <div className="relative z-10 flex flex-col items-center">
-        {/* Candles */}
         <div className="absolute -top-48 left-1/2 transform -translate-x-1/2">
           <div className="candle">
             {!candlesBlownOut && (
               <div>
-                {/* Floating "blow" texts above flames */}
+                {/* Floating blow texts */}
                 <div className="absolute -top-[200px] w-full text-center text-gray-200 text-xl">
                   <motion.div
                     animate={{ opacity: [0, 0.25, 0] }}
@@ -127,11 +137,9 @@ function Cake() {
         </div>
 
         {/* Cake SVG */}
-        <div onClick={handleCakeTap} className="cursor-pointer z-20">
-          <CakeSVG />
-        </div>
+        <CakeSVG />
 
-        {/* Instruction text under cake */}
+        {/* Instruction text below cake */}
         {!candlesBlownOut && (
           <motion.div
             className="text-[#FFFDD0] mt-6 text-lg"
@@ -139,7 +147,7 @@ function Cake() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            Tap me!
+            Tap and blow!
           </motion.div>
         )}
       </div>
