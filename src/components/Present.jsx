@@ -5,7 +5,7 @@ function Present() {
   return (
     <SectionWrapper>
       <div className='mb-64'>
-        <h1 className="absolute -top-[7rem] left-0 right-0 text-center flex items-center justify-center text-xl font-extrabold text-customBlue drop-shadow-lg">
+        <h1 className="absolute -top-[7rem] left-0 right-0 text-center flex items-center justify-center text-xl font-extrabold text-[#FDF0D5] drop-shadow-lg"">
           Click the box to see your gifts!
         </h1>
       </div>
@@ -16,17 +16,17 @@ function Present() {
           <div className="gift-bottom"></div>
           <div id="raffle-red" className="entry raffle raffle-1">
             <div className="no-scale">
-              <span className="ticket-text">Wish<br/>(no horny)</span>
+              <span className="ticket-text">In<br/>May?</span>
             </div>
           </div>
           <div id="raffle-red" className="entry raffle raffle-2">
             <div className="no-scale">
-              <span className="ticket-text">Free<br/>Me</span>
+              <span className="ticket-text">Us<br/>Metting</span>
             </div>
           </div>
           <div id="raffle-red" className="entry raffle raffle-3">
             <div className="no-scale">
-              <span className="ticket-text">Free<br/>Hug</span>
+              <span className="ticket-text">Wish<br/>unhorny</span>
             </div>
           </div>
         </label>
