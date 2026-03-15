@@ -94,7 +94,7 @@ Order matters a
     position: absolute;
     bottom: 1em;
     right: -12px;
-    background: #F44;
+    background: #FFC200;
     color: #FFF;
     font-style: italic;
     font-weight: bold;
@@ -107,7 +107,7 @@ Order matters a
   
   #card-front button:hover,
   #card-front button:focus {
-    background: #F22;
+    background: #FFC200;
   }
   
   #close {
