@@ -56,7 +56,8 @@ function Card() {
 
         <div id="card-front">
           <div className="wrap">
-            <h1>Feliz cumpleaños!</h1>
+            <h1>Feliz </h1>
+            <h1>cumpleaños!</h1>
           </div>
         </div>
     </div>
@@ -69,7 +70,7 @@ function Card() {
         animate={{ opacity: 1, visibility: "visible" }}
         transition={{duration: 1.2}}> 
         <Link to ='/cake'>
-        <p className="-mt-[4rem] px-7 py-3 bg-customBlue text-white font-medium text-base rounded-full hover:bg-blue-600">
+        <p className="-mt-[4rem] px-7 py-3 bg-[#FFFDD0] text-[#800020] font-medium text-base rounded-full hover:bg-[#F6F0C4]">
             Next Page
           </p>
         </Link>
